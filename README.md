@@ -1,4 +1,3 @@
-Here is a comprehensive **README.md** for your new repository. It explains the features, how the data structure works, and how to get the bot running.
 
 ---
 
