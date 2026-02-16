@@ -1,0 +1,19 @@
+{
+  "name": "whatsapp-standalone",
+  "version": "1.0.0",
+  "type": "module",
+  "description": "Standalone WhatsApp Login with Session Persistence",
+  "main": "index.js",
+  "scripts": {
+    "start": "node index.js",
+    "dev": "node --watch index.js",
+    "logout": "rm -rf auth_info"
+  },
+  "dependencies": {
+    "@hapi/boom": "^10.0.1",
+    "@whiskeysockets/baileys": "^6.6.0",
+    "dotenv": "^17.3.1",
+    "pino": "^9.0.0",
+    "qrcode-terminal": "^0.12.0"
+  }
+}
