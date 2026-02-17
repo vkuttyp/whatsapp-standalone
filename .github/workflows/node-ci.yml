@@ -1,32 +1,39 @@
-name: Node.js CI
+name: Node.js CI/CD
 
 on:
   push:
     branches: [ "main" ]
-  pull_request:
-    branches: [ "main" ]
 
 jobs:
-  build:
+  build-and-deploy:
     runs-on: ubuntu-latest
-
-    strategy:
-      matrix:
-        node-version: [18.x, 20.x, 22.x]
-        # This tests your bot across different Node versions to ensure compatibility
 
     steps:
     - uses: actions/checkout@v4
-    
-    - name: Use Node.js ${{ matrix.node-version }}
+
+    - name: Use Node.js 22.x
       uses: actions/setup-node@v4
       with:
-        node-version: ${{ matrix.node-version }}
+        node-version: 22.x
         cache: 'npm'
         
     - name: Install Dependencies
       run: npm install
 
     - name: Syntax Check
-      # This check ensures your index.js doesn't have broken code before you deploy
       run: node --check index.js
+
+    # --- DEPLOYMENT STEP ---
+    - name: Deploy to OVH VPS
+      if: github.ref == 'refs/heads/main'
+      uses: appleboy/ssh-action@v1.0.3
+      with:
+        host: ${{ secrets.VPS_HOST }}
+        username: ${{ secrets.VPS_USER }}
+        key: ${{ secrets.VPS_SSH_KEY }}
+       script: |
+          cd ~/whatsapp-standalone
+          git pull origin main
+          npm install --production
+          pm2 restart jarvis-bot --update-env
+          node notify.js  # <--- Add this line
