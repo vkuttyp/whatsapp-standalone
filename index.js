@@ -24,7 +24,7 @@ const chatMemory = {};
 let dailyLog = [];
 
 // FIXME: Replace with your JID from terminal logs (e.g., "919876543210@s.whatsapp.net")
-const MY_JID = "YOUR_NUMBER@s.whatsapp.net"; 
+const MY_JID = process.env.MY_JID.trim(); 
 const AUTH_DIR = 'auth_info';
 
 /**
@@ -167,7 +167,7 @@ connectToWhatsApp().catch(err => console.error(err));
 import http from 'http';
 
 // Simple Health Check Server
-const PORT = 3000;
+const PORT = process.env.PORT || 2482;
 http.createServer((req, res) => {
     res.writeHead(200, { 'Content-Type': 'application/json' });
     res.end(JSON.stringify({
