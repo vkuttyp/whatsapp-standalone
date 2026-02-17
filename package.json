@@ -10,6 +10,7 @@
     "logout": "rm -rf auth_info"
   },
   "dependencies": {
+    "@google/generative-ai": "^0.24.1",
     "@hapi/boom": "^10.0.1",
     "@whiskeysockets/baileys": "^6.6.0",
     "dotenv": "^17.3.1",
